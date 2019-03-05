@@ -1,3 +1,5 @@
+Include EnsSQLTypes
+
 Class Batch.SQL.OutboundAdapter Extends (Ens.OutboundAdapter, Batch.SQL.Common)
 {
 
@@ -140,13 +142,8 @@ Method ExecuteUpdateBatchParamArray(Output pNumRowsAffected As %Integer, pUpdate
 				
 				//Set the SqlType
 				set i = i +1
-				if (pParms(1,k,l,"SqlType")='"")
-				{
-					set $LIST(tArgs,i)=pParms(1,k,l,"SqlType")
-				}
-				else {
-					set $LIST(tArgs,i)=12 // The JDBC data type for varchar is 12
-				}
+				set $LIST(tArgs,i)=+$G(pParms(1,k,l,"SqlType"),+$G(pParms(1,k,l,"CType"),$$$SqlVarchar))
+
 				//Set the value
 				set i = i +1
 				set $LIST(tArgs,i)=pParms(1,k,l) 
@@ -161,9 +158,13 @@ Method ExecuteUpdateBatchParamArray(Output pNumRowsAffected As %Integer, pUpdate
 		set tResultCodes = ..%JGProxy.executeParametersBatch(pHS,.tArgs)
 
 
-		
+		set tNbUpdate=0
 		//Todo, Read list set pNumRowsAffected = $LISTLENGTH(tResultCodes)
-		set pNumRowsAffected = nbBatch	
+		for i=1:1:$LISTLENGTH(tResultCodes)
+		{
+			set:($LG(tResultCodes,i)=1) tNbUpdate =tNbUpdate +1
+		}
+		set pNumRowsAffected = tNbUpdate
 		
 		
 		// Remove Statement to avoid CURSOR Leaks

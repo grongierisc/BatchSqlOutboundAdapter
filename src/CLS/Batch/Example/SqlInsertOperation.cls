@@ -1,3 +1,5 @@
+Include EnsSQLTypes
+
 Class Batch.Example.SqlInsertOperation Extends Ens.BusinessOperation
 {
 
@@ -53,13 +55,13 @@ Method SetResultSetView(pRequest As Ens.StringRequest, Output pResponse As Ens.S
 				q:('end)
 					
 					set param(k,1) = pSnap.Get("ID")
-					set param(k,1,"SqlType")=4
+					set param(k,1,"SqlType")=pSnap.GetColumnSQLType(pSnap.GetColumnID("ID"))
 
 					set param(k,2) = pSnap.Get("ProductName")
-					set param(k,2,"SqlType")=12
+					set param(k,2,"SqlType")=pSnap.GetColumnSQLType(pSnap.GetColumnID("ProductName"))
 				
 					set param(k,3) = $ZDATETIME($NOW(),3)
-					set param(k,3,"SqlType")=12
+					set param(k,3,"SqlType")=$$$SqlVarchar
 
 					set param(k) = 3
 							
