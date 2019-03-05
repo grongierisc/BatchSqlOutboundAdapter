@@ -92,7 +92,7 @@ Method SetResultSetView(pRequest As Ens.StringRequest, Output pResponse As Ens.S
 XData MessageMap
 {
 <MapItems>
-	<MapItem MessageType="BO.Msg.SetInfoRequest"> 
+	<MapItem MessageType="Ens.StringRequest"> 
 		<Method>SetResultSetView</Method>
 	</MapItem>
 </MapItems>
