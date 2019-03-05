@@ -2,8 +2,6 @@
 
 Extend EnsLib.SQL.OutboundAdapter to add batch support batch on JDBC connection.
 
-ENSDEMO port to IRIS without HL7 and DICOM examples
-
 ## Prerequisites
 
 Can be used on IRIS or Ensemble 2017.2+.
