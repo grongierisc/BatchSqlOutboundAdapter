@@ -138,10 +138,18 @@ Method ExecuteUpdateBatchParamArray(Output pNumRowsAffected As %Integer, pUpdate
 			
 			for l=1:1:pParms(1,k){
 				
+				//Set the SqlType
 				set i = i +1
-				set $LIST(tArgs,i)=12 // The JDBC data type for varchar is 12
+				if (pParms(1,k,l,"SqlType")='"")
+				{
+					set $LIST(tArgs,i)=pParms(1,k,l,"SqlType")
+				}
+				else {
+					set $LIST(tArgs,i)=12 // The JDBC data type for varchar is 12
+				}
+				//Set the value
 				set i = i +1
-				set $LIST(tArgs,i)=pParms(1,k,l) // Value for column Field1VarChar
+				set $LIST(tArgs,i)=pParms(1,k,l) 
 				
 			}
 			
@@ -211,7 +219,6 @@ Method ExecuteSelectStatement(ByRef pRS As EnsLib.SQL.GatewayResultSet, pObject 
 				
 				set tColumnQuery = $s(tColumnParameter'="":tColumnParameter,1:tColumnName _ " = ?")
 				set tQueryFiltres = $s(tQueryFiltres'="":tQueryFiltres_" AND ",1:tQueryFiltres)_tColumnQuery
-
 						
 			} 
 		}
