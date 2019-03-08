@@ -44,7 +44,7 @@ Method ExecuteQueryBatch(ByRef pRS As EnsLib.SQL.GatewayResultSet, pQueryStateme
 	Quit ..ExecuteQueryBatchParmArray(.pRS,pQueryStatement,pBatchSize,.pParms)
 }
 
-Method ExecuteQueryBatchParmArray(ByRef pRS As EnsLib.SQL.GatewayResultSet, pQueryStatement As %String, pBatchSize As %Integer, ByRef pParms) As %Status
+Method ExecuteQueryBatchParmArray(ByRef pRS As Batch.SQL.GatewayResultSet, pQueryStatement As %String, pBatchSize As %Integer, ByRef pParms) As %Status
 {
 	If '$$$IsdefObject(pRS) || 'pRS.%IsA("EnsLib.SQL.Snapshot") Kill pRS  Set pRS=$$$NULLOREF
 	Set $ZT="Trap", tHS="", tSC=$$$OK, tNetErr=0
