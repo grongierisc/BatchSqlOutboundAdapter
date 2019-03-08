@@ -7,6 +7,12 @@ Parameter ADAPTER = "Batch.SQL.OutboundAdapter";
 
 Property Adapter As Batch.SQL.OutboundAdapter;
 
+Property batch As %Integer [ InitialExpression = 10 ];
+
+Property insertSize As %Integer [ InitialExpression = 10000 ];
+
+Parameter SETTINGS = "batch,insertSize";
+
 Parameter INVOCATION = "Queue";
 
 // Set storage max pour ce processus
@@ -26,44 +32,42 @@ Method SetResultSetView(pRequest As Ens.StringRequest, Output pResponse As Ens.S
 					
 		set nbLignes = 0
 		set pResponse = ##class(Ens.StringResponse).%New()
-			
-		//Get SnapShot
-		Set pSnap = ##class(Batch.SQL.Snapshot).%New()
-		set pSnap.%GblRef = pRequest.StringValue
-		set pSnap.%CurrentRow = 0
-		set pSnap.FirstRow = 1
-		set pSnap.MaxRowsToGet = pSnap.RowCountGet()
 		
 		//Pour les tests, on truncate les tables avant insertion
-		$$$ThrowOnError(..Adapter.ExecuteUpdate(.nrows,"TRUNCATE TABLE ODS_Products"))		
+		$$$ThrowOnError(..Adapter.ExecuteUpdate(.nrows,"DROP TABLE ODS_Products"))
+
+		//Creer la table pour l'exemple
+		$$$ThrowOnError(..Adapter.ExecuteUpdate(.nrows,"CREATE TABLE ODS_Products (id int4 NULL,productname varchar NULL,date_alimentation date NULL)"))		
 		
 		
 		set SqlInsertView = "INSERT into ODS_Products (ID,ProductName,Date_Alimentation) values (?,?,TO_DATE(?,'yyyy-mm-dd hh24:mi:ss'))"
 
-			$$$TRACE(SqlInsertView)
+		$$$TRACE(SqlInsertView)
 		
-		set batch = 10
+		set batch = ..batch
 				
 		set end =""
-		while 'pSnap.AtEndGet() {
+		for i=0:1:..insertSize{
 			
 			set param = ""
 			
 			for k=1:1:batch {
-				set end = pSnap.Next()
-				set:(('end) && (k'=batch)) k = k-1
-				q:('end)
+				
+				
 					
-					set param(k,1) = pSnap.Get("ID")
-					set param(k,1,"SqlType")=pSnap.GetColumnSQLType(pSnap.GetColumnID("ID"))
+					set param(k,1) = i
+					set param(k,1,"SqlType")=$$$SqlInteger
 
-					set param(k,2) = pSnap.Get("ProductName")
-					set param(k,2,"SqlType")=pSnap.GetColumnSQLType(pSnap.GetColumnID("ProductName"))
+					set param(k,2) = ##class(%PopulateUtils).Name()
+					set param(k,2,"SqlType")=$$$SqlVarchar
 				
 					set param(k,3) = $ZDATETIME($NOW(),3)
 					set param(k,3,"SqlType")=$$$SqlVarchar
 
 					set param(k) = 3
+
+				set i = i + 1
+				q:(i=..insertSize)
 							
 				}	
 		     
@@ -74,7 +78,6 @@ Method SetResultSetView(pRequest As Ens.StringRequest, Output pResponse As Ens.S
 			k param
 				
 			set nbLignes = nbLignes + nrows
-			q:('end)
 				
 	}
 		set pResponse.StringValue = nbLignes
@@ -84,9 +87,6 @@ Method SetResultSetView(pRequest As Ens.StringRequest, Output pResponse As Ens.S
 	{
 		Set tStatus = exp.AsStatus()
 	}
-	
-	//Finaly Clean RS
-	d pSnap.Clean()
 
 	Quit tStatus
 }
