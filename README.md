@@ -18,14 +18,14 @@ Use Batch.SQL.BatchSqlOutboundAdapter adaptor.
 
 ### New methods from the adaptor
 
-* Method ExecuteQueryBatchParmArray(ByRef pRS As Batch.SQL.GatewayResultSet, pQueryStatement As %String, pBatchSize As %Integer, ByRef pParms) As %Status
-    * pRS is the ResultSet can be use as any EnsLib.SQL.GatewayResultSet
-    * pQueryStatement is the SQL query you like to execute
-    * pBatchSize is the fetch size JDBC parameter
-* Method ExecuteUpdateBatchParamArray(Output pNumRowsAffected As %Integer, pUpdateStatement As %String, pParms...) As %Status 
-    * pNumRowsAffected is the number of row inserted
-    * pUpdateStatement is teh update/insert SQL statement
-    * pParms is Caché Multidimensional Array
+* Method **ExecuteQueryBatchParmArray**(ByRef pRS As Batch.SQL.GatewayResultSet, pQueryStatement As %String, pBatchSize As %Integer, ByRef pParms) As %Status
+    * *pRS* is the ResultSet can be use as any EnsLib.SQL.GatewayResultSet
+    * *pQueryStatement* is the SQL query you like to execute
+    * *pBatchSize* is the fetch size JDBC parameter
+* Method **ExecuteUpdateBatchParamArray**(Output pNumRowsAffected As %Integer, pUpdateStatement As %String, pParms...) As %Status 
+    * *pNumRowsAffected* is the number of row inserted
+    * *pUpdateStatement* is teh update/insert SQL statement
+    * *pParms* is Caché Multidimensional Array
         * pParms indicate the number of row in batch
         * pParms(integer) indicate the number of parameters in the row
         * pParms(integer,integerParam) indicate the value of the parameter whose position is integerParam.
