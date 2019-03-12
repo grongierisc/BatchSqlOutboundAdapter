@@ -14,7 +14,7 @@ Clone this repository
 git clone https://github.com/grongierisc/BatchSqlOutboundAdapter.git
 ```
 
-Use Batch.SQL.BatchSqlOutboundAdapter adaptor.
+Use Batch.SQL.SqlOutboundAdapter adaptor.
 
 ### New methods from the adaptor
 
