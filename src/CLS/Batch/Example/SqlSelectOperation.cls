@@ -7,9 +7,9 @@ Property Adapter As Batch.SQL.OutboundAdapter;
 
 Parameter INVOCATION = "Queue";
 
-Property ViewPrefix As %String [ InitialExpression = "VBO%" ];
+Property FetchSize As %Integer [ InitialExpression = 500 ];
 
-Parameter SETTINGS = "ViewPrefix";
+Parameter SETTINGS = "FetchSize";
 
 // Set storage max pour ce processus
 
@@ -20,32 +20,46 @@ Method OnInit() As %Status
 	q $$$OK
 }
 
-Method GetResultSetView(pRequest As Ens.StringRequest, Output pResponse As Ens.StringResponse) As %Status
+Method GetBatchSelect(pRequest As Ens.Request, Output pResponse As Ens.StringResponse) As %Status
 {
 	
 	set tStatus = $$$OK
-	set nbIntervenants = 0
+	set nbRows = 0
+
 	try{
 		
 		set pResponse = ##class(Ens.StringResponse).%New()
 		set sqlGetView = "SELECT ID, ProductName FROM DemoData.dbo.Products"
 		
+		Set TimeStampStart = ##class(%Library.PosixTime).LogicalToUnixTime(##class(%Library.PosixTime).CurrentTimeStamp())
+
 		$$$TRACE(sqlGetView)
+			
+		$$$ThrowOnError(..Adapter.ExecuteQueryBatch(.tRs,sqlGetView,..FetchSize))
 		
-		Set pSnap = ##class(Batch.SQL.Snapshot).%New()
+		While tRs.%Next(){
+
+			Set tID = tRs.Get("ID")
+
+			If ##class(Batch.Example.Product).%ExistsId(tID){
+				Set tProduct = ##class(Batch.Example.Product).%OpenId(tID)
+			}
+			Else {
+				Set tProduct = ##class(Batch.Example.Product).%New()
+			}
+			
+			Set tProduct.ID = tID
+			Set tProduct.Name = tRs.Get("ProductName")
+			$$$ThrowOnError(tProduct.%Save())
+
+			Do $INCREMENT(nbRows)
+		}
 		
-		//dimension du snapshot
-		// -1 = Max
-		set pSnap.MaxRowsToGet = -1
-				
-		$$$ThrowOnError(..Adapter.ExecuteQueryBatch(.tRs,sqlGetView,500))
-		
-		$$$ThrowOnError(pSnap.ImportFromResultSet(tRs,0))
-		
-		$$$ThrowOnError(pSnap.%Save())
-		
-	
-		set pResponse.StringValue = pSnap.%GblRef	
+		Set TimeStampEnd = ##class(%Library.PosixTime).LogicalToUnixTime(##class(%Library.PosixTime).CurrentTimeStamp())
+
+		Set Delta = TimeStampEnd - TimeStampStart
+
+		Set pResponse.StringValue = nbRows_" in "_Delta
 	}
 	catch exp
 	{
@@ -58,7 +72,7 @@ XData MessageMap
 {
 <MapItems>
 	<MapItem MessageType="Ens.Request"> 
-		<Method>GetResultSetView</Method>
+		<Method>GetBatchSelect</Method>
 	</MapItem>
 </MapItems>
 }
