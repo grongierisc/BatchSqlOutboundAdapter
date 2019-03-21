@@ -33,38 +33,39 @@ Method SetResultSetView(pRequest As Ens.StringRequest, Output pResponse As Ens.S
 		set nbLignes = 0
 		set pResponse = ##class(Ens.StringResponse).%New()
 		
+		Set TimeStampStart = ##class(%Library.PosixTime).LogicalToUnixTime(##class(%Library.PosixTime).CurrentTimeStamp())
+
 		//Pour les tests, on truncate les tables avant insertion
 		$$$ThrowOnError(..Adapter.ExecuteUpdate(.nrows,"DROP TABLE ODS_Products"))
 
 		//Creer la table pour l'exemple
-		$$$ThrowOnError(..Adapter.ExecuteUpdate(.nrows,"CREATE TABLE ODS_Products (id int4 NULL,productname varchar NULL,date_alimentation date NULL)"))		
+		$$$ThrowOnError(..Adapter.ExecuteUpdate(.nrows,"CREATE TABLE ODS_Products (id int NULL,productname varchar(100) NULL,date_alimentation datetime NULL)"))		
 		
 		
-		set SqlInsertView = "INSERT into ODS_Products (ID,ProductName,Date_Alimentation) values (?,?,TO_DATE(?,'yyyy-mm-dd hh24:mi:ss'))"
+		set SqlInsertView = "INSERT into ODS_Products (ID,ProductName,Date_Alimentation) values (?,?,CONVERT(datetime, ?, 120))"
 
 		$$$TRACE(SqlInsertView)
 		
 		set batch = ..batch
 				
 		set end =""
-		for i=0:1:..insertSize{
+		set i=0
+		while i<..insertSize{
 			
 			set param = ""
 			
 			for k=1:1:batch {
 				
-				
-					
-					set param(k,1) = i
-					set param(k,1,"SqlType")=$$$SqlInteger
+				set param(k,1) = i
+				set param(k,1,"SqlType")=$$$SqlInteger
 
-					set param(k,2) = ##class(%PopulateUtils).Name()
-					set param(k,2,"SqlType")=$$$SqlVarchar
-				
-					set param(k,3) = $ZDATETIME($NOW(),3)
-					set param(k,3,"SqlType")=$$$SqlVarchar
+				set param(k,2) = ##class(%PopulateUtils).Name()
+				set param(k,2,"SqlType")=$$$SqlVarchar
+			
+				set param(k,3) = $ZDATETIME($NOW(),3)
+				set param(k,3,"SqlType")=$$$SqlVarchar
 
-					set param(k) = 3
+				set param(k) = 3
 
 				set i = i + 1
 				q:(i=..insertSize)
@@ -80,7 +81,12 @@ Method SetResultSetView(pRequest As Ens.StringRequest, Output pResponse As Ens.S
 			set nbLignes = nbLignes + nrows
 				
 	}
-		set pResponse.StringValue = nbLignes
+
+	Set TimeStampEnd = ##class(%Library.PosixTime).LogicalToUnixTime(##class(%Library.PosixTime).CurrentTimeStamp())
+
+	Set Delta = TimeStampEnd - TimeStampStart
+
+	set pResponse.StringValue = nbLignes_" in "_Delta
 		
 	}
 	catch exp

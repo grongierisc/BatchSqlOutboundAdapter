@@ -20,7 +20,7 @@ Method OnInit() As %Status
 	q $$$OK
 }
 
-Method GetBatchSelect(pRequest As Ens.Request, Output pResponse As Ens.StringResponse) As %Status
+Method GetBatchSelect(pRequest As Ens.StringRequest, Output pResponse As Ens.StringResponse) As %Status
 {
 	
 	set tStatus = $$$OK
@@ -29,7 +29,7 @@ Method GetBatchSelect(pRequest As Ens.Request, Output pResponse As Ens.StringRes
 	try{
 		
 		set pResponse = ##class(Ens.StringResponse).%New()
-		set sqlGetView = "SELECT ID, ProductName FROM DemoData.dbo.Products"
+		set sqlGetView = "SELECT ID, ProductName FROM DemoData.dbo.ODS_Products"
 		
 		Set TimeStampStart = ##class(%Library.PosixTime).LogicalToUnixTime(##class(%Library.PosixTime).CurrentTimeStamp())
 
@@ -71,7 +71,7 @@ Method GetBatchSelect(pRequest As Ens.Request, Output pResponse As Ens.StringRes
 XData MessageMap
 {
 <MapItems>
-	<MapItem MessageType="Ens.Request"> 
+	<MapItem MessageType="Ens.StringRequest"> 
 		<Method>GetBatchSelect</Method>
 	</MapItem>
 </MapItems>
