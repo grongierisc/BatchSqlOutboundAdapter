@@ -2,6 +2,12 @@
 
 Extend EnsLib.SQL.OutboundAdapter to add batch support batch on JDBC connection.
 
+## Benchmark
+
+On Postgres 11.2, 1 000 000 rows fetched, 100 000 rows inserted, 2 columns.
+
+![alt text](https://raw.githubusercontent.com/grongierisc/BatchSqlOutboundAdapter/master/Bench/screenshot.png)
+
 ## Prerequisites
 
 Can be used on IRIS or Ensemble 2017.2+.
