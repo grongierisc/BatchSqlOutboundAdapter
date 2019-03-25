@@ -29,7 +29,7 @@ Method GetBatchSelect(pRequest As Ens.StringRequest, Output pResponse As Ens.Str
 	try{
 		
 		set pResponse = ##class(Ens.StringResponse).%New()
-		set sqlGetView = "SELECT ID, ProductName FROM DemoData.dbo.ODS_Products"
+		set sqlGetView = "SELECT ID, ProductName FROM ODS_Products"
 		
 		Set TimeStampStart = ##class(%Library.PosixTime).LogicalToUnixTime(##class(%Library.PosixTime).CurrentTimeStamp())
 

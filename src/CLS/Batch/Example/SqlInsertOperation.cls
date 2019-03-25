@@ -39,10 +39,11 @@ Method SetResultSetView(pRequest As Ens.StringRequest, Output pResponse As Ens.S
 		$$$ThrowOnError(..Adapter.ExecuteUpdate(.nrows,"DROP TABLE ODS_Products"))
 
 		//Creer la table pour l'exemple
-		$$$ThrowOnError(..Adapter.ExecuteUpdate(.nrows,"CREATE TABLE ODS_Products (id int NULL,productname varchar(100) NULL,date_alimentation datetime NULL)"))		
+		$$$ThrowOnError(..Adapter.ExecuteUpdate(.nrows,"CREATE TABLE ODS_Products (id int4 NULL,productname varchar NULL,date_alimentation date NULL)"))		
 		
 		
-		set SqlInsertView = "INSERT into ODS_Products (ID,ProductName,Date_Alimentation) values (?,?,CONVERT(datetime, ?, 120))"
+	
+		set SqlInsertView = "INSERT into ODS_Products (ID,ProductName,Date_Alimentation) values (?,?,TO_DATE(?,'yyyy-mm-dd hh24:mi:ss'))"
 
 		$$$TRACE(SqlInsertView)
 		
