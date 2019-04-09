@@ -1,6 +1,6 @@
 # BatchSqlOutboundAdapter
 
-Extend EnsLib.SQL.OutboundAdapter to add batch support batch on JDBC connection.
+Extend EnsLib.SQL.OutboundAdapter to add batch batch and fetch support on JDBC connection.
 
 ## Benchmark
 
