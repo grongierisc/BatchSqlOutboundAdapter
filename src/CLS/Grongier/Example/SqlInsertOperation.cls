@@ -1,11 +1,11 @@
 Include EnsSQLTypes
 
-Class Batch.Example.SqlInsertOperation Extends Ens.BusinessOperation
+Class Grongier.Example.SqlInsertOperation Extends Ens.BusinessOperation
 {
 
-Parameter ADAPTER = "Batch.SQL.OutboundAdapter";
+Parameter ADAPTER = "Grongier.SQL.OutboundAdapter";
 
-Property Adapter As Batch.SQL.OutboundAdapter;
+Property Adapter As Grongier.SQL.OutboundAdapter;
 
 Property batch As %Integer [ InitialExpression = 10 ];
 

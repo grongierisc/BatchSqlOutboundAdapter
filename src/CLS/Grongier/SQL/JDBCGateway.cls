@@ -1,4 +1,4 @@
-Class Batch.SQL.JDBCGateway Extends %Net.Remote.Java.JDBCGateway
+Class Grongier.SQL.JDBCGateway Extends %Net.Remote.Java.JDBCGateway
 {
 
 Method executeParametersBatch(ByRef p0 As %Library.ObjectHandle, ByRef p1 As %Library.ObjectHandle) As %Library.ObjectHandle

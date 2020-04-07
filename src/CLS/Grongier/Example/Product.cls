@@ -1,4 +1,4 @@
-Class Batch.Example.Product Extends %Persistent
+Class Grongier.Example.Product Extends %Persistent
 {
 
 Property ID As %String;
@@ -23,12 +23,12 @@ Storage Default
 <Value>Name</Value>
 </Value>
 </Data>
-<DataLocation>^Batch.Example.ProductD</DataLocation>
+<DataLocation>^Grongier.Example.ProductD</DataLocation>
 <DefaultData>ProductDefaultData</DefaultData>
-<IdLocation>^Batch.Example.ProductD</IdLocation>
-<IndexLocation>^Batch.Example.ProductI</IndexLocation>
+<IdLocation>^Grongier.Example.ProductD</IdLocation>
+<IndexLocation>^Grongier.Example.ProductI</IndexLocation>
 <State>ProductState</State>
-<StreamLocation>^Batch.Example.ProductS</StreamLocation>
+<StreamLocation>^Grongier.Example.ProductS</StreamLocation>
 <Type>%Storage.Persistent</Type>
 }
 

@@ -1,4 +1,4 @@
-Class Batch.SQL.CommonJ Extends EnsLib.SQL.CommonJ
+Class Grongier.SQL.Common Extends (EnsLib.SQL.Common, Grongier.SQL.CommonJ)
 {
 
 /*

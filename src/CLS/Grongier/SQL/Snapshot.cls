@@ -1,4 +1,4 @@
-Class Batch.SQL.Snapshot Extends EnsLib.SQL.Snapshot
+Class Grongier.SQL.Snapshot Extends EnsLib.SQL.Snapshot
 {
 
 Method %OnNew(pBatchSize As %Integer) As %Status [ Private, ServerOnly = 1 ]

@@ -1,9 +1,9 @@
-Class Batch.Example.SqlSelectOperation Extends Ens.BusinessOperation
+Class Grongier.Example.SqlSelectOperation Extends Ens.BusinessOperation
 {
 
-Parameter ADAPTER = "Batch.SQL.OutboundAdapter";
+Parameter ADAPTER = "Grongier.SQL.OutboundAdapter";
 
-Property Adapter As Batch.SQL.OutboundAdapter;
+Property Adapter As Grongier.SQL.OutboundAdapter;
 
 Parameter INVOCATION = "Queue";
 
@@ -41,11 +41,11 @@ Method GetBatchSelect(pRequest As Ens.StringRequest, Output pResponse As Ens.Str
 
 			Set tID = tRs.Get("ID")
 
-			If ##class(Batch.Example.Product).%ExistsId(tID){
-				Set tProduct = ##class(Batch.Example.Product).%OpenId(tID)
+			If ##class(Grongier.Example.Product).%ExistsId(tID){
+				Set tProduct = ##class(Grongier.Example.Product).%OpenId(tID)
 			}
 			Else {
-				Set tProduct = ##class(Batch.Example.Product).%New()
+				Set tProduct = ##class(Grongier.Example.Product).%New()
 			}
 			
 			Set tProduct.ID = tID

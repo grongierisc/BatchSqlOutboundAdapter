@@ -1,12 +1,12 @@
-Class Batch.Example.Production Extends Ens.Production
+Class Grongier.Example.Production Extends Ens.Production
 {
 
 XData ProductionDefinition
 {
-<Production Name="Batch.Example.Production" TestingEnabled="true" LogGeneralTraceEvents="false">
+<Production Name="Grongier.Example.Production" TestingEnabled="true" LogGeneralTraceEvents="false">
   <Description></Description>
   <ActorPoolSize>2</ActorPoolSize>
-  <Item Name="Batch_Select" Category="" ClassName="Batch.Example.SqlSelectOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="Batch_Select" Category="" ClassName="Grongier.Example.SqlSelectOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Adapter" Name="JGService">JG</Setting>
     <Setting Target="Adapter" Name="StayConnected">10</Setting>
     <Setting Target="Adapter" Name="DSN">jdbc:postgresql://localhost:5432/postgres?currentSchema="DemoData"</Setting>
@@ -17,7 +17,7 @@ XData ProductionDefinition
   </Item>
   <Item Name="JG" Category="" ClassName="EnsLib.JavaGateway.Service" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
-  <Item Name="Batch_Insert" Category="" ClassName="Batch.Example.SqlInsertOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="Batch_Insert" Category="" ClassName="Grongier.Example.SqlInsertOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Adapter" Name="JGService">JG</Setting>
     <Setting Target="Adapter" Name="StayConnected">10</Setting>
     <Setting Target="Adapter" Name="DSN">jdbc:postgresql://localhost:5432/postgres?currentSchema="DemoData"</Setting>

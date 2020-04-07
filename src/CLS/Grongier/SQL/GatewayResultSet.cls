@@ -1,4 +1,4 @@
-Class Batch.SQL.GatewayResultSet Extends EnsLib.SQL.GatewayResultSet
+Class Grongier.SQL.GatewayResultSet Extends EnsLib.SQL.GatewayResultSet
 {
 
 /*

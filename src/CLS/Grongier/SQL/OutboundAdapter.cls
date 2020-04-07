@@ -1,6 +1,6 @@
 Include EnsSQLTypes
 
-Class Batch.SQL.OutboundAdapter Extends (Ens.OutboundAdapter, Batch.SQL.Common)
+Class Grongier.SQL.OutboundAdapter Extends (Ens.OutboundAdapter, Grongier.SQL.Common)
 {
 
 /*
@@ -22,7 +22,7 @@ Method OnInit() As %Status
 {
 	
 	//Pour rétro compactibilité vers 2016.2 à supprimer à paritr de 2017.2.2
-	set ..JGClientEnsClassname = "Batch.SQL.JDBCGateway"
+	set ..JGClientEnsClassname = "Grongier.SQL.JDBCGateway"
 	
 	#; Create an instance of the SQLGateway object
 	Set tSC=##super() Quit:$$$ISERR(tSC) tSC
@@ -44,7 +44,7 @@ Method ExecuteQueryBatch(ByRef pRS As EnsLib.SQL.GatewayResultSet, pQueryStateme
 	Quit ..ExecuteQueryBatchParmArray(.pRS,pQueryStatement,pBatchSize,.pParms)
 }
 
-Method ExecuteQueryBatchParmArray(ByRef pRS As Batch.SQL.GatewayResultSet, pQueryStatement As %String, pBatchSize As %Integer, ByRef pParms) As %Status
+Method ExecuteQueryBatchParmArray(ByRef pRS As Grongier.SQL.GatewayResultSet, pQueryStatement As %String, pBatchSize As %Integer, ByRef pParms) As %Status
 {
 	If '$$$IsdefObject(pRS) || 'pRS.%IsA("EnsLib.SQL.Snapshot") Kill pRS  Set pRS=$$$NULLOREF
 	Set $ZT="Trap", tHS="", tSC=$$$OK, tNetErr=0
@@ -66,7 +66,7 @@ Method ExecuteQueryBatchParmArray(ByRef pRS As Batch.SQL.GatewayResultSet, pQuer
 		Quit:$$$ISERR(tSC)
 
 		#; Succeeded, construct the custom result set
-		Set tRS=##class(Batch.SQL.GatewayResultSet).%New(pBatchSize)  $$$ASSERT($IsObject(tRS))
+		Set tRS=##class(Grongier.SQL.GatewayResultSet).%New(pBatchSize)  $$$ASSERT($IsObject(tRS))
 		Set tSC=tRS.Initialize(pQueryStatement,$this,tHS,1,"")  Quit:$$$ISERR(tSC)
 
 		If $IsObject(pRS) { Set tSC=tRS.GetSnapshot(pRS) Quit:$$$ISERR(tSC) }

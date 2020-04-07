@@ -20,11 +20,11 @@ Clone this repository
 git clone https://github.com/grongierisc/BatchSqlOutboundAdapter.git
 ```
 
-Use Batch.SQL.SqlOutboundAdapter adaptor.
+Use Grongier.SQL.SqlOutboundAdapter adaptor.
 
 ### New methods from the adaptor
 
-* Method **ExecuteQueryBatchParmArray**(ByRef pRS As Batch.SQL.GatewayResultSet, pQueryStatement As %String, pBatchSize As %Integer, ByRef pParms) As %Status
+* Method **ExecuteQueryBatchParmArray**(ByRef pRS As Grongier.SQL.GatewayResultSet, pQueryStatement As %String, pBatchSize As %Integer, ByRef pParms) As %Status
     * *pRS* is the ResultSet can be use as any EnsLib.SQL.GatewayResultSet
     * *pQueryStatement* is the SQL query you like to execute
     * *pBatchSize* is the fetch size JDBC parameter
@@ -39,24 +39,24 @@ Use Batch.SQL.SqlOutboundAdapter adaptor.
 
 ### Example
 
- * **Batch.Example.SqlSelectOperation** show an example of ExecuteQueryBatchParmArray
- * **Batch.Example.SqlSelectOperation** show an example of ExecuteUpdateBatchParamArray
+ * **Grongier.Example.SqlSelectOperation** show an example of ExecuteQueryBatchParmArray
+ * **Grongier.Example.SqlSelectOperation** show an example of ExecuteUpdateBatchParamArray
 
 ### Content of this project
 
 This adaptor include :
 
-* Batch.SQL.Common
+* Grongier.SQL.Common
   * No modification, simple extend of EnsLib.SQL.Common
-* Batch.SQL.CommonJ
+* Grongier.SQL.CommonJ
   * No modification, simple extend of EnsLib.SQL.CommonJ
-* Batch.SQL.GatewayResultSet
+* Grongier.SQL.GatewayResultSet
   * Extension of EnsLib.SQL.GatewayResultSet to gain the ablility to use fetch size.
-* Batch.SQL.JDBCGateway
+* Grongier.SQL.JDBCGateway
   * Use to allow compilation and support on Ensemble 2017.1 and lower
-* Batch.SQL.OutboundAdapter
+* Grongier.SQL.OutboundAdapter
   * The new adaptor with :
     * ExecuteQueryBatchParmArray allow SQL query a distant database and specify the JDBC fetchSize
     * ExecuteUpdateBatchParamArray allow insertion in a distant database with JDBC addBatch and executeBatch
-* Batch.SQL.Snapshot
-  * Extend of EnsLib.SQL.Snapshot to handle Batch.SQL.GatewayResultSet and the fetch size property
+* Grongier.SQL.Snapshot
+  * Extend of EnsLib.SQL.Snapshot to handle Grongier.SQL.GatewayResultSet and the fetch size property
