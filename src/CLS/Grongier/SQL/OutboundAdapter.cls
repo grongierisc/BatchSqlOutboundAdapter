@@ -160,11 +160,21 @@ Method ExecuteUpdateBatchParamArray(Output pNumRowsAffected As %Integer, pUpdate
 
 		set tNbUpdate=0
 		//Todo, Read list set pNumRowsAffected = $LISTLENGTH(tResultCodes)
-		for i=1:1:$LISTLENGTH(tResultCodes)
-		{
-			set:($LG(tResultCodes,i)=1) tNbUpdate =tNbUpdate +1
+		if $LISTVALID(tResultCodes){
+			for i=1:1:$LISTLENGTH(tResultCodes)
+			{
+				if ($LG(tResultCodes,i)=1){
+					set tNbUpdate = tNbUpdate +1
+				} Else {
+					set tStatus = $$$ADDSC(tStatus, $$$ERROR($$$GeneralError,"One row not inserted"))
+				}
+				
+			}
+			set pNumRowsAffected = tNbUpdate
+		} else {
+			set tStatus = $$$ERROR($$$GeneralError,"No row inserted")
 		}
-		set pNumRowsAffected = tNbUpdate
+
 		
 		
 		// Remove Statement to avoid CURSOR Leaks
