@@ -163,7 +163,8 @@ Method ExecuteUpdateBatchParamArray(Output pNumRowsAffected As %Integer, pUpdate
 		if $LISTVALID(tResultCodes){
 			for i=1:1:$LISTLENGTH(tResultCodes)
 			{
-				if ($LG(tResultCodes,i)=1){
+				$$$LOGINFO($LG(tResultCodes,i))
+				if ($LG(tResultCodes,i)'=-3){
 					set tNbUpdate = tNbUpdate +1
 				} Else {
 					set tStatus = $$$ADDSC(tStatus, $$$ERROR($$$GeneralError,"One row not inserted"))
