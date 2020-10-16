@@ -62,4 +62,9 @@ Method GetListObject(pClassName As %String, ByRef pSC As %Status) As %ListOfData
 	Quit tLOO
 }
 
+Storage Default
+{
+<Type>%Storage.Persistent</Type>
+}
+
 }

@@ -9,13 +9,13 @@ Property Adapter As Grongier.SQL.OutboundAdapter;
 
 Property batch As %Integer [ InitialExpression = 10 ];
 
-Property insertSize As %Integer [ InitialExpression = 10000 ];
+Property insertSize As %Integer [ InitialExpression = 10 ];
 
 Parameter SETTINGS = "batch,insertSize";
 
 Parameter INVOCATION = "Queue";
 
-// Set storage max pour ce processus
+// Set max RAM memory for this process
 
 Method OnInit() As %Status
 {
@@ -36,16 +36,14 @@ Method SetResultSetView(pRequest As Ens.StringRequest, Output pResponse As Ens.S
 		Set TimeStampStart = ##class(%Library.PosixTime).LogicalToUnixTime(##class(%Library.PosixTime).CurrentTimeStamp())
 
 		//Pour les tests, on truncate les tables avant insertion
-		$$$ThrowOnError(..Adapter.ExecuteUpdate(.nrows,"DROP TABLE ODS_Products"))
+		$$$ThrowOnError(..Adapter.ExecuteUpdate(.nrows,"DROP TABLE IF EXISTS DemoData.ODS_Products"))
 
 		//Creer la table pour l'exemple
-		$$$ThrowOnError(..Adapter.ExecuteUpdate(.nrows,"CREATE TABLE ODS_Products (id int4 NULL,productname varchar NULL,date_alimentation date NULL)"))		
-		
-		
-	
-		set SqlInsertView = "INSERT into ODS_Products (ID,ProductName,Date_Alimentation) values (?,?,TO_DATE(?,'yyyy-mm-dd hh24:mi:ss'))"
+		$$$ThrowOnError(..Adapter.ExecuteUpdate(.nrows,"CREATE TABLE DemoData.ODS_Products (id int8 NULL,productname varchar NULL,date_alimentation date NULL)"))		
 
-		$$$TRACE(SqlInsertView)
+		set SqlInsertView = "INSERT into DemoData.ODS_Products (ID,ProductName,Date_Alimentation) values (?,?,TO_DATE(?,'yyyy-mm-dd hh24:mi:ss'))"
+
+		$$$LOGINFO(SqlInsertView)
 		
 		set batch = ..batch
 				
@@ -75,8 +73,10 @@ Method SetResultSetView(pRequest As Ens.StringRequest, Output pResponse As Ens.S
 		     
 			set param = k
 			
-			$$$ThrowOnError(..Adapter.ExecuteUpdateBatchParamArray(.nrows,SqlInsertView,.param))
-							
+			set sc = ..Adapter.ExecuteUpdateBatchParamArray(.nrows,SqlInsertView,.param)
+
+			$$$LOGINFO(sc)	
+
 			k param
 				
 			set nbLignes = nbLignes + nrows

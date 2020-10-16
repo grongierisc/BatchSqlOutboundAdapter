@@ -1,0 +1,12 @@
+zn "%SYS"
+Do ##class(Security.Users).UnExpireUserPasswords("*")
+
+zn "USER"
+
+zw $SYSTEM.OBJ.ImportDir("/tmp/iris/src", "*.cls", "cubk", .tErrors, 1)
+
+zw ##class(Ens.Config.Credentials).SetCredential("Postgre","DemoData","DemoData",1)
+
+zw ##class(Ens.Director).SetAutoStart("Grongier.Example.Production")
+
+h
