@@ -3,7 +3,8 @@
   <Document name="sql-batch-outbound-adaptor.ZPM">
     <Module>
       <Name>sql-batch-outbound-adaptor</Name>
-      <Version>1.0.2</Version>
+      <Version>1.0.3</Version>
+      <Description>xtend EnsLib.SQL.OutboundAdapter to add batch batch and fetch support on JDBC connection for Ensemble and IRIS.</Description>
       <Packaging>module</Packaging>
       <SourcesRoot>src/CLS</SourcesRoot>
       <Resource Name="Grongier.SQL.PKG"/>
