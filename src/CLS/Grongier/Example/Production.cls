@@ -3,7 +3,7 @@ Class Grongier.Example.Production Extends Ens.Production
 
 XData ProductionDefinition
 {
-<Production Name="Grongier.Example.Production" TestingEnabled="true" LogGeneralTraceEvents="false">
+<Production Name="Grongier.Example.Production" TestingEnabled="true" LogGeneralTraceEvents="true">
   <Description></Description>
   <ActorPoolSize>2</ActorPoolSize>
   <Item Name="Batch_Select" Category="" ClassName="Grongier.Example.SqlSelectOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
@@ -26,6 +26,10 @@ XData ProductionDefinition
     <Setting Target="Adapter" Name="Credentials">Postgre</Setting>
     <Setting Target="Host" Name="batch">10</Setting>
     <Setting Target="Host" Name="insertSize">50000</Setting>
+  </Item>
+  <Item Name="Grongier.Example.BP.GetInfo" Category="" ClassName="Grongier.Example.BP.GetInfo" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  </Item>
+  <Item Name="Grongier.Example.BP.GetInfoSnapShot" Category="" ClassName="Grongier.Example.BP.GetInfoSnapShot" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
   </Item>
 </Production>
 }
