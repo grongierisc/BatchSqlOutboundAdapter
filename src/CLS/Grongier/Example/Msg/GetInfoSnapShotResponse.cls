@@ -1,7 +1,7 @@
 Class Example.Msg.GetInfoSnapShotResponse Extends Ens.StringResponse
 {
 
-Property Snapshot As EnsLib.SQL.Snapshot;
+Property Snapshot As Grongier.SQL.Snapshot;
 
 Storage Default
 {

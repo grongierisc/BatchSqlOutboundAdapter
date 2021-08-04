@@ -13,11 +13,11 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <call name='GetInfo' target='Batch_Select' async='0' xpos='200' ypos='250' >
 <request type='Example.Msg.GetInfoSnapShotRequest' />
 <response type='Example.Msg.GetInfoSnapShotResponse' >
-<assign property="context.tInfos" value="callresponse.Infos" action="set" />
+<assign property="context.tSnapShot" value="callresponse.Snapshot" action="set" />
 </response>
 </call>
-<while name='SnapShot' condition='context.tSnapShot.%Next()' xpos='366' ypos='314' xend='200' yend='550' >
-<trace name='Info' value='context.tSnapShot.Get("ProductName")' xpos='369' ypos='329' />
+<while name='SnapShot' condition='context.tSnapShot.%Next()' xpos='200' ypos='350' xend='200' yend='350' >
+<trace name='Info' value='context.tSnapShot.Get("ProductName")' xpos='200' ypos='250' />
 </while>
 </sequence>
 </process>

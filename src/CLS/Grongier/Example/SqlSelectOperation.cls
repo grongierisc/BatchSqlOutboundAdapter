@@ -134,7 +134,7 @@ Method GetInfoSnapShot(pRequest As Ens.StringRequest, Output pResponse As Exampl
 
 		Set Delta = TimeStampEnd - TimeStampStart
 
-		Set pResponse.StringValue = nbRows_" in "_Delta
+		Set pResponse.StringValue = tSnapShot.RowCount_" in "_Delta
 	}
 	catch exp
 	{
