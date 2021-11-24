@@ -1,4 +1,5 @@
-FROM store/intersystems/irishealth-community:2020.2.0.196.0
+# FROM store/intersystems/irishealth-community:2020.2.0.196.0
+FROM intersystemsdc/irishealth-community:latest
 
 # copy files
 COPY . /tmp/iris

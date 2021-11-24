@@ -11,7 +11,9 @@ services:
     - "./:/tmp/iris"
     ports:
     - "52775:52773"
-    - "51776:51773"
+#    - "51776:51773"
+# new SuperServer Port
+    - "51776:1972"
   db:
     image: postgres:12.2
     hostname: db
