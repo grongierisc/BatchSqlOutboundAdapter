@@ -27,6 +27,16 @@ XData ProductionDefinition
     <Setting Target="Host" Name="batch">10</Setting>
     <Setting Target="Host" Name="insertSize">50000</Setting>
   </Item>
+  <Item Name="Batch_Insert_Oliver" Category="" ClassName="Grongier.Example.SqlInsertOperationTest" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Adapter" Name="JGService">JG</Setting>
+    <Setting Target="Adapter" Name="StayConnected">10</Setting>
+    <Setting Target="Adapter" Name="DSN">jdbc:postgresql://db:5432/DemoData</Setting>
+    <Setting Target="Adapter" Name="JDBCClasspath">/tmp/iris/postgresql-42.2.14.jar</Setting>
+    <Setting Target="Adapter" Name="JDBCDriver">org.postgresql.Driver</Setting>
+    <Setting Target="Adapter" Name="Credentials">Postgre</Setting>
+    <Setting Target="Host" Name="batch">5</Setting>
+    <Setting Target="Host" Name="insertSize">100</Setting>
+  </Item>
   <Item Name="Grongier.Example.BP.GetInfo" Category="" ClassName="Grongier.Example.BP.GetInfo" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
   </Item>
   <Item Name="Grongier.Example.BP.GetInfoSnapShot" Category="" ClassName="Grongier.Example.BP.GetInfoSnapShot" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">

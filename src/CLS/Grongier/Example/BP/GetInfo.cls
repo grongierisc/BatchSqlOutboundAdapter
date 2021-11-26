@@ -28,5 +28,9 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 </process>
 }
 
+Storage Default
+{
+<Type>%Storage.Persistent</Type>
+}
 
 }

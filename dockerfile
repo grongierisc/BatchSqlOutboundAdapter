@@ -1,4 +1,4 @@
-FROM intersystemsdc/iris-community:2020.3.0.221.0-zpm
+FROM intersystemsdc/iris-community:latest
 
 # copy files
 COPY . /tmp/iris

@@ -8,10 +8,20 @@
       "ns": "USER",
       "active": true,
       "username": "SuperUser",
-      "docker-compose": {
-        "service": "iris",
-        "internalPort": 52773
+      "host": "localhost",
+      "port": 52775
+    },
+    "sqltools.connections": [
+      {
+        "previewLimit": 50,
+        "server": "localhost",
+        "port": 5432,
+        "driver": "PostgreSQL",
+        "name": "test",
+        "database": "DemoData",
+        "username": "DemoData",
+        "password": "DemoData"
       }
-    }
+    ]
 
 }
