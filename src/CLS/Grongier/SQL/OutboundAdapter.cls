@@ -117,7 +117,7 @@ Method ExecuteUpdateBatchParamArray(Output pNumRowsAffected As %Integer, pUpdate
 		// JDBCGwy is an instance of the JDBC Gateway object. EnsLib.SQL.OutboundAdapter instantiates this automatically and stores a reference to it in ..%Connection.%JGProxy
 
 		// Prepare the SQL statement
-		Set pHS=..%JGProxy.prepareStatement(..%ConnHandle,pSQLStatement)
+		Set pHS=..%Connection.%JGProxy.prepareStatement(..%ConnHandle,pSQLStatement)
 		
 		// executeParametersBatch expects tArgs to be a $LIST, with the following format:
 		//     ParamCount, ParamSets, Type1, Param1, Type2, Param2, Type3, Param3, Type11,Param11 TypeNN,ParamNN
@@ -155,7 +155,7 @@ Method ExecuteUpdateBatchParamArray(Output pNumRowsAffected As %Integer, pUpdate
 		
 		// Perform the batch insert
 		// tResultCodes is a $LIST of integers indicating success/failure for each row in the batch
-		set tResultCodes = ..%JGProxy.executeParametersBatch(pHS,.tArgs)
+		set tResultCodes = ..%Connection.%JGProxy.executeParametersBatch(pHS,.tArgs)
 
 
 		set tNbUpdate=0
@@ -179,7 +179,7 @@ Method ExecuteUpdateBatchParamArray(Output pNumRowsAffected As %Integer, pUpdate
 		
 		
 		// Remove Statement to avoid CURSOR Leaks
-		set sc = ..%JGProxy.removeStatement(pHS)
+		set sc = ..%Connection.%JGProxy.removeStatement(pHS)
 		
 		k tArgs
 		
